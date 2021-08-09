@@ -2,14 +2,14 @@ import 'package:bloc/bloc.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:meta/meta.dart';
 import 'package:offline_first_app/modules/home/models/pokemon.dart';
-import 'package:offline_first_app/modules/home/repositories/remote_pokemon_repository.dart';
+import 'package:offline_first_app/modules/home/repositories/pokemon_repository.dart';
 
 part 'pokemon_state.dart';
 
 class PokemonCubit extends Cubit<PokemonState> {
-  final RemotePokemonRepository remotePokemonRepository;
+  final PokemonRepository pokemonRepository;
   final Connectivity connectivity;
-  PokemonCubit(this.remotePokemonRepository, this.connectivity)
+  PokemonCubit(this.pokemonRepository, this.connectivity)
       : super(PokemonInitial());
 
   Future<void> getPokemonList() async {
@@ -24,7 +24,7 @@ class PokemonCubit extends Cubit<PokemonState> {
   Future<void> getRemotePokemonList() async {
     try {
       emit(PokemonLoading());
-      final result = await remotePokemonRepository.getAllPokemons();
+      final result = await pokemonRepository.getAllPokemons();
       emit(PokemonLoaded(pokemonList: result));
     } catch (error) {
       emit(PokemonError());

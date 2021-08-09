@@ -2,7 +2,7 @@ import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:offline_first_app/modules/home/models/pokemon.dart';
-import 'package:offline_first_app/modules/home/repositories/remote_pokemon_repository.dart';
+import 'package:offline_first_app/modules/home/repositories/pokemon_repository.dart';
 import 'package:offline_first_app/modules/home/views/cubit/pokemon_cubit.dart';
 
 class MyHomePage extends StatefulWidget {
@@ -14,16 +14,16 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   late final PokemonCubit pokemonCubit;
-  late final _remotePokemonRepository;
+  late final _pokemonRepository;
   late final _connectivity;
 
   @override
   void initState() {
-    _remotePokemonRepository = RemotePokemonRepository();
+    _pokemonRepository = PokemonRepository();
     _connectivity = Connectivity();
 
     pokemonCubit = PokemonCubit(
-      _remotePokemonRepository,
+      _pokemonRepository,
       _connectivity,
     );
 

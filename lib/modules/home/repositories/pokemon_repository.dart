@@ -3,7 +3,7 @@ import 'package:offline_first_app/helpers/db_helper.dart';
 import 'package:offline_first_app/modules/home/models/pokemon.dart';
 import 'package:sqflite/sqflite.dart';
 
-class RemotePokemonRepository {
+class PokemonRepository {
   final dio = Dio();
   var databaseFuture = DatabaseHelper.db.database;
   static const POKEMON_TABLE_NAME = 'pokemon';
