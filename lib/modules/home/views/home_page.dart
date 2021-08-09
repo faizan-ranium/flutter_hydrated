@@ -27,9 +27,17 @@ class _MyHomePageState extends State<MyHomePage> {
       _connectivity,
     );
 
-    pokemonCubit.getPokemonList();
+    this.fetchPokemonList(_connectivity);
 
     super.initState();
+  }
+
+  fetchPokemonList(connectivity) async {
+    final connectivityStatus = await connectivity.checkConnectivity();
+    print(connectivityStatus);
+    if (connectivityStatus != ConnectivityResult.none) {
+      pokemonCubit.getPokemonList();
+    }
   }
 
   @override
@@ -41,7 +49,9 @@ class _MyHomePageState extends State<MyHomePage> {
       body: BlocConsumer<PokemonCubit, PokemonState>(
         bloc: pokemonCubit,
         listener: (context, state) {
-          if (state is PokemonLoaded) {}
+          if (state is PokemonLoaded) {
+            // print(state.toMap());
+          }
         },
         builder: (context, state) {
           if (state is PokemonLoading) {

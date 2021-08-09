@@ -11,6 +11,7 @@ class PokemonRepository {
       'https://pokeapi.co/api/v2/pokemon?limit=100&offset=200';
 
   Future<List<Pokemon>> getAllPokemons() async {
+    print('in repository fetching data');
     late final List<Pokemon> pokemonList;
     final Database database = await databaseFuture;
     try {

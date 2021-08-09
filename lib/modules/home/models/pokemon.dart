@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 class Pokemon {
   final String name;
   final String url;
@@ -12,8 +14,19 @@ class Pokemon {
         url: json["url"],
       );
 
-  Map<String, dynamic> toMap() => {
-        "name": name,
-        "url": url,
-      };
+  Map<String, dynamic> toMap() {
+    return {
+      'name': name,
+      'url': url,
+    };
+  }
+
+  factory Pokemon.fromMap(Map<String, dynamic> map) {
+    return Pokemon(
+      name: map['name'],
+      url: map['url'],
+    );
+  }
+
+  String toJson() => json.encode(toMap());
 }
