@@ -2,7 +2,6 @@ import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:offline_first_app/modules/home/models/pokemon.dart';
-import 'package:offline_first_app/modules/home/repositories/local_pokemon_repository.dart';
 import 'package:offline_first_app/modules/home/repositories/remote_pokemon_repository.dart';
 import 'package:offline_first_app/modules/home/views/cubit/pokemon_cubit.dart';
 
@@ -16,18 +15,15 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   late final PokemonCubit pokemonCubit;
   late final _remotePokemonRepository;
-  late final _localPokemonRepository;
   late final _connectivity;
 
   @override
   void initState() {
     _remotePokemonRepository = RemotePokemonRepository();
-    _localPokemonRepository = LocalPokemonRepository();
     _connectivity = Connectivity();
 
     pokemonCubit = PokemonCubit(
       _remotePokemonRepository,
-      _localPokemonRepository,
       _connectivity,
     );
 
@@ -45,22 +41,18 @@ class _MyHomePageState extends State<MyHomePage> {
       body: BlocConsumer<PokemonCubit, PokemonState>(
         bloc: pokemonCubit,
         listener: (context, state) {
-          if (state is RemotePokemonLoaded) {
-            _localPokemonRepository.updateLocalPokemonDatatable(
-              state.pokemonList,
-            );
-          }
+          if (state is PokemonLoaded) {}
         },
         builder: (context, state) {
           if (state is PokemonLoading) {
             return Center(child: CircularProgressIndicator());
           }
 
-          if (state is RemotePokemonLoaded) {
+          if (state is PokemonLoaded) {
             return HomePageBody(pokemonList: state.pokemonList);
           }
 
-          if (state is LocalPokemonLoaded) {
+          if (state is PokemonLoaded) {
             return HomePageBody(pokemonList: state.pokemonList);
           }
 

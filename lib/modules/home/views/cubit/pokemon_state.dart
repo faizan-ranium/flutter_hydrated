@@ -7,18 +7,10 @@ class PokemonInitial extends PokemonState {}
 
 class PokemonLoading extends PokemonState {}
 
-class RemotePokemonLoaded extends PokemonState {
+class PokemonLoaded extends PokemonState {
   final List<Pokemon> pokemonList;
 
-  RemotePokemonLoaded({required this.pokemonList});
+  PokemonLoaded({required this.pokemonList});
 }
-
-class LocalPokemonLoaded extends PokemonState {
-  final List<Pokemon> pokemonList;
-
-  LocalPokemonLoaded({required this.pokemonList});
-}
-
-class LocalPokemonSync extends PokemonState {}
 
 class PokemonError extends PokemonState {}
