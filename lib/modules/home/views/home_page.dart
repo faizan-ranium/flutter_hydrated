@@ -22,10 +22,7 @@ class _MyHomePageState extends State<MyHomePage> {
     _pokemonRepository = PokemonRepository();
     _connectivity = Connectivity();
 
-    pokemonCubit = PokemonCubit(
-      _pokemonRepository,
-      _connectivity,
-    );
+    pokemonCubit = PokemonCubit(_pokemonRepository);
 
     this.fetchPokemonList(_connectivity);
 

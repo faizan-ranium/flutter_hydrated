@@ -10,17 +10,10 @@ part 'pokemon_state.dart';
 
 class PokemonCubit extends Cubit<PokemonState> with HydratedMixin {
   final PokemonRepository pokemonRepository;
-  final Connectivity connectivity;
-  PokemonCubit(this.pokemonRepository, this.connectivity)
-      : super(PokemonInitial());
+  PokemonCubit(this.pokemonRepository) : super(PokemonInitial());
 
   Future<void> getPokemonList() async {
-    final connectivityStatus = await connectivity.checkConnectivity();
-    // if (connectivityStatus == ConnectivityResult.none) {
-    //   // getLocalPokemonList();
-    // } else {
     getRemotePokemonList();
-    // }
   }
 
   Future<void> getRemotePokemonList() async {
